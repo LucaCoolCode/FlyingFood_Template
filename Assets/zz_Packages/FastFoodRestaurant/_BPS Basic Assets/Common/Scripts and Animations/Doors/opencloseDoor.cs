@@ -1,72 +1,48 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SojaExiles
-
 {
-	public class opencloseDoor : MonoBehaviour
+	public class OpenCloseDoor : MonoBehaviour
 	{
+		[SerializeField] public Transform player;
+		private Animator animator;
+		private bool open;
 
-		public Animator openandclose;
-		public bool open;
-		public Transform Player;
-
-		void Start()
+		private void OnMouseOver()
 		{
-			open = false;
-		}
-
-		void OnMouseOver()
-		{
+			if (player)
 			{
-				if (Player)
+				float dist = Vector3.Distance(player.position, transform.position);
+				if (dist < 15)
 				{
-					float dist = Vector3.Distance(Player.position, transform.position);
-					if (dist < 15)
+					if (Input.GetMouseButtonDown(0))
 					{
-						if (open == false)
-						{
-							if (Input.GetMouseButtonDown(0))
-							{
-								StartCoroutine(opening());
-							}
-						}
-						else
-						{
-							if (open == true)
-							{
-								if (Input.GetMouseButtonDown(0))
-								{
-									StartCoroutine(closing());
-								}
-							}
-
-						}
-
+						StartCoroutine(open ? Close() : Open());
 					}
 				}
-
 			}
-
 		}
 
-		IEnumerator opening()
+		private IEnumerator Open()
 		{
 			print("you are opening the door");
-			openandclose.Play("Opening");
+			animator.Play("Opening");
 			open = true;
 			yield return new WaitForSeconds(.5f);
 		}
 
-		IEnumerator closing()
+		private IEnumerator Close()
 		{
 			print("you are closing the door");
-			openandclose.Play("Closing");
+			animator.Play("Closing");
 			open = false;
 			yield return new WaitForSeconds(.5f);
 		}
 
-
-	}
+        private void Awake()
+        {
+			animator = GetComponent<Animator>();
+        }
+    }
 }
