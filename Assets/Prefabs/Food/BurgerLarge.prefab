@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2259677458657494475}
   - component: {fileID: 2192086356162498532}
   - component: {fileID: 3495842230781538220}
+  - component: {fileID: 4648635852925919188}
   m_Layer: 0
   m_Name: BurgerLarge
   m_TagString: Untagged
@@ -135,6 +136,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: f9e7ed08898d80148b9f645cd07c8b8e, type: 3}
+--- !u!114 &4648635852925919188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413109509644517594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 844d8da5c470d4610969753d100d7624, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitEffect: {fileID: 609299208961236454, guid: a1b9a100a787c4e19b7dae548155e587, type: 3}
 --- !u!1001 &2243385404326965812
 PrefabInstance:
   m_ObjectHideFlags: 0
