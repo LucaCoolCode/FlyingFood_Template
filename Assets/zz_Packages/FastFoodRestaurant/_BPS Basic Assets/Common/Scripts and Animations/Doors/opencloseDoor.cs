@@ -5,7 +5,7 @@ namespace SojaExiles
 {
 	public class OpenCloseDoor : MonoBehaviour
 	{
-		[SerializeField] public Transform player;
+		[SerializeField] private Transform player;
 		private Animator animator;
 		private bool open;
 
@@ -40,9 +40,9 @@ namespace SojaExiles
 			yield return new WaitForSeconds(.5f);
 		}
 
-        private void Awake()
-        {
+		private void Awake()
+		{
 			animator = GetComponent<Animator>();
-        }
-    }
+		}
+	}
 }
