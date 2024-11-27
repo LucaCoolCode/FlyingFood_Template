@@ -11316,8 +11316,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodSpeed: 30
-  food: {fileID: 413109509644517594, guid: 2a00193521d894b63997d49aad8ce569, type: 3}
   ShootPoint: {fileID: 66758865}
+  ShootEffect: {fileID: 5688621020241137862, guid: 3036444d2c1101c4e958738d02bf12bd, type: 3}
+  FoodList:
+  - {fileID: 6867253737602008949, guid: 00fdaa06be4dc4572b5af08db816b830, type: 3}
+  - {fileID: 7598329083919992622, guid: d6c4fbd943a1d45fab011c9f928db73d, type: 3}
+  - {fileID: 3393670468255704466, guid: b992ff6a162e849ef87331e3782396fc, type: 3}
+  - {fileID: 6813978829621541872, guid: 2cc282f864dac45dc87926c1d2b5bb43, type: 3}
+  - {fileID: 8582241234332741000, guid: 3c60fa65604c94a57b2389f2ba63e97e, type: 3}
+  - {fileID: 413109509644517594, guid: 2a00193521d894b63997d49aad8ce569, type: 3}
+  - {fileID: 5336203760118149885, guid: b25a4981177454f419fb7838968b1e32, type: 3}
+  - {fileID: 1709401294487626456, guid: c1b0372c670514d20aef9a186f34c284, type: 3}
+  - {fileID: 8940809897678416834, guid: 9c98585a8da8b41968b5aab414976903, type: 3}
+  - {fileID: 5897956873609493688, guid: 3e4b8030df42f474aae252d3983c8ec1, type: 3}
+  - {fileID: 7016249740846602164, guid: 8ca69b16386254d5a804aba494e2576a, type: 3}
+  - {fileID: 67473434673981706, guid: 0482f6a46cdd84400bbe62a411d670f7, type: 3}
+  - {fileID: 8644186211642251195, guid: c2064faa059584bdcbbd0c707e34f222, type: 3}
+  - {fileID: 621572241504145850, guid: 4b3a5d26fd8c04890b928f63b3584638, type: 3}
+  - {fileID: 3191669660339962677, guid: 4b78f458643344740985209a604fe42f, type: 3}
+  - {fileID: 3191669660339962677, guid: 4b78f458643344740985209a604fe42f, type: 3}
+  - {fileID: 7799195346272557432, guid: 1a3e854b198a043b8bdbf5c3b114621a, type: 3}
+  - {fileID: 5979589556458729412, guid: 33bd966a71c5548d2a9cf08ddc6a0667, type: 3}
+  - {fileID: 6846985528960117828, guid: 17bcbe3bd81594df1a1e1570513e61f7, type: 3}
+  - {fileID: 6844156997520182246, guid: 34af673937c89468c9439b0367b04ad2, type: 3}
+  - {fileID: 5979760642171127233, guid: e022c330088b74874b3252300d3074aa, type: 3}
+  - {fileID: 7514950073340348564, guid: 181d94fe2df9c420ab6aeeb3068ad280, type: 3}
+  - {fileID: 4223698049055529646, guid: a803de3a94bac4da482220b072bc96c5, type: 3}
+  - {fileID: 1032488403268520074, guid: 2625b11ee21b24ec4b30e7a8883ef340, type: 3}
+  - {fileID: 8586105541549498898, guid: 55626a82a73e54345bc51a23a2b16cd2, type: 3}
+  - {fileID: 9051281661343966866, guid: 8ca8e217f806d4c55baa4b29ebf1dd1e, type: 3}
+  - {fileID: 598188892439967540, guid: 195e9a3e01c934bdcbb17719b1f38e19, type: 3}
+  - {fileID: 149790, guid: 7737647c22c1fc64a88d5cd030c352ce, type: 3}
+  - {fileID: 100000, guid: a6e39ced0ea046bcb636c3f0b2e2a745, type: 3}
+  - {fileID: 5286328772216621839, guid: 41b57333fef1c834d8da0f4387d82975, type: 3}
+  - {fileID: 3181250377939818311, guid: 7e96f0b0da5565a4b99c81f8d0cd8391, type: 3}
+  - {fileID: 1743156886038142, guid: 99a0f1488ea2c1d47b7e9f7190961e40, type: 3}
+  - {fileID: 2530248384463198189, guid: 229639aed4129534fa69a11f5305b94e, type: 3}
+  - {fileID: 2690148653922988374, guid: 3e68a847cfcd1e643a2285edcf75f83c, type: 3}
+  - {fileID: 1258943336385952, guid: 6b5e9772e973b514993c495d4471494c, type: 3}
+  - {fileID: 1927095934725912876, guid: a9b081014bad86f4a80b60284279d21b, type: 3}
+  - {fileID: 1391097013200286, guid: 10c808cfbee7a32428c98c49e3fd5643, type: 3}
+  - {fileID: 1641839031538123451, guid: 08bc3173e3ac6af4d93f486bbcd594d5, type: 3}
+  - {fileID: 1437334416075554, guid: 42ded4a9b41e76d46bb90a3e35072cf7, type: 3}
 --- !u!4 &669423313 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5220891408672472619, guid: 2d48a5ba5e9c424489a39d7577e631b8, type: 3}
@@ -21333,11 +21373,11 @@ PrefabInstance:
     - target: {fileID: 3802098988466134844, guid: d6421dedb513843dc99104c59c553a9a, type: 3}
       propertyPath: hitEffect
       value: 
-      objectReference: {fileID: 7509569068035639639, guid: 34b62790d9d31c64ea200a261b6dba40, type: 3}
+      objectReference: {fileID: 5688621020241137862, guid: 3036444d2c1101c4e958738d02bf12bd, type: 3}
     - target: {fileID: 3802098988466134844, guid: d6421dedb513843dc99104c59c553a9a, type: 3}
       propertyPath: appearEffect
       value: 
-      objectReference: {fileID: 7509569068035639639, guid: 34b62790d9d31c64ea200a261b6dba40, type: 3}
+      objectReference: {fileID: 5688621020241137862, guid: 3036444d2c1101c4e958738d02bf12bd, type: 3}
     - target: {fileID: 3802098988466134844, guid: d6421dedb513843dc99104c59c553a9a, type: 3}
       propertyPath: spawnPointHolder
       value: 
