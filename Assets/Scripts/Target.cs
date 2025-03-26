@@ -1,11 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 public class Target : MonoBehaviour
 {
     [SerializeField] private Transform spawnPointHolder;
     [SerializeField] private GameObject hitEffect;
     [SerializeField] private GameObject appearEffect;
+    [SerializeField] private TMP_Text pointsText;
+    private int points = 0;
     private List<Transform> allSpawns = new List<Transform>();
 
     private void GetSpawns()
@@ -32,6 +35,8 @@ public class Target : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Respawn();
+        points++;
+        pointsText.text = "points: "+points.ToString();
     }
 }
 
