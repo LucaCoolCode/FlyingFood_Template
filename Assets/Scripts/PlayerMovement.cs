@@ -4,124 +4,103 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private CharacterController controller;
-    [SerializeField] private Transform playerCamera;
+    [SerializeField] private CharacterController controller;
 
-    // Movement settings
+    // Movement Speeds
     [SerializeField] private float moveSpeed = 7.0f;
-    [SerializeField] private float jumpSpeed = 8.0f;
-    [SerializeField] private float gravity = 20.0f;
-    [SerializeField] private float friction = 6.0f;
-    [SerializeField] private float acceleration = 10.0f;
-    [SerializeField] private float airAcceleration = 15.0f;
-    [SerializeField] private float maxAirSpeed = 20.0f;
+    [SerializeField] private float jumpForce = 5.0f;
+    [SerializeField] private float gravity = 9.81f;
+    [SerializeField] private float friction = 0.5f; // Lower friction = smoother movement
+    [SerializeField] private float airAcceleration = 15.0f; // Faster air strafing
 
-    // Mouse settings
-    [SerializeField] private float mouseSensitivity = 3.0f;
-    private float rotationX = 0.0f;
+    // Mouse Sensitivity
+    [SerializeField] private float mouseSensitivity = 2.5f;
 
-    private Vector3 moveDirection = Vector3.zero;
-    private Vector3 wishDir;
-    private float wishSpeed;
-
+    private Vector3 velocity;
     private bool isGrounded;
+    private bool jumpQueued;
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
-
-        // Lock cursor for FPS movement
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     void Update()
     {
-        isGrounded = controller.isGrounded;
-
-        // Mouse Look
-        MouseLook();
-
-        if (isGrounded)
-        {
-            GroundMove();
-        }
-        else
-        {
-            AirMove();
-        }
-
-        moveDirection.y -= gravity * Time.deltaTime;
-        controller.Move(moveDirection * Time.deltaTime);
+        LookAround();
+        HandleMovement();
     }
 
-    void MouseLook()
+    void LookAround()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        rotationX -= mouseY;
-        rotationX = Mathf.Clamp(rotationX, -90f, 90f); // Prevents looking too far up/down
-
-        playerCamera.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        // Rotate the camera horizontally
         transform.Rotate(Vector3.up * mouseX);
+
+        // Apply vertical look (camera pitch) here (if desired):
+        Camera.main.transform.Rotate(Vector3.left * mouseY);
     }
 
-    void GroundMove()
+    void HandleMovement()
+    {
+        isGrounded = controller.isGrounded;
+
+        // Get input
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveZ = Input.GetAxisRaw("Vertical");
+
+        Vector3 moveDir = transform.right * moveX + transform.forward * moveZ;
+        moveDir = moveDir.normalized;
+
+        if (isGrounded)
+        {
+            GroundMove(moveDir);
+            if (Input.GetKeyDown(KeyCode.Space)) jumpQueued = true;
+        }
+        else
+        {
+            AirMove(moveDir);
+        }
+
+        // Apply gravity
+        velocity.y -= gravity * Time.deltaTime;
+
+        // Apply movement
+        controller.Move(velocity * Time.deltaTime);
+    }
+
+    void GroundMove(Vector3 moveDir)
     {
         // Apply friction
-        moveDirection.x *= 1 - (friction * Time.deltaTime);
-        moveDirection.z *= 1 - (friction * Time.deltaTime);
+        velocity.x *= 1 - (friction * Time.deltaTime);
+        velocity.z *= 1 - (friction * Time.deltaTime);
 
-        // Get movement input
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveZ = Input.GetAxisRaw("Vertical");
-
-        wishDir = new Vector3(moveX, 0, moveZ);
-        wishDir = transform.TransformDirection(wishDir);
-        wishDir.Normalize();
-        wishSpeed = wishDir.magnitude * moveSpeed;
-
-        // Accelerate
-        moveDirection = Accelerate(moveDirection, wishDir, wishSpeed, acceleration);
+        // Apply movement
+        velocity.x = moveDir.x * moveSpeed;
+        velocity.z = moveDir.z * moveSpeed;
 
         // Auto Bunny Hop
-        if (Input.GetButton("Jump"))
+        if (jumpQueued)
         {
-            moveDirection.y = jumpSpeed;
+            velocity.y = jumpForce;
+            jumpQueued = false;
         }
     }
 
-    void AirMove()
+    void AirMove(Vector3 moveDir)
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveZ = Input.GetAxisRaw("Vertical");
-
-        wishDir = new Vector3(moveX, 0, moveZ);
-        wishDir = transform.TransformDirection(wishDir);
-        wishDir.Normalize();
-        wishSpeed = wishDir.magnitude * moveSpeed;
-
-        // Accelerate in air (air strafing)
-        moveDirection = Accelerate(moveDirection, wishDir, wishSpeed, airAcceleration);
+        // Apply air acceleration for smooth strafing
+        velocity.x = Accelerate(velocity.x, moveDir.x, moveSpeed, airAcceleration);
+        velocity.z = Accelerate(velocity.z, moveDir.z, moveSpeed, airAcceleration);
     }
 
-    Vector3 Accelerate(Vector3 velocity, Vector3 wishDir, float wishSpeed, float accel)
+    float Accelerate(float currentSpeed, float wishDir, float maxSpeed, float acceleration)
     {
-        float currentSpeed = Vector3.Dot(velocity, wishDir);
-        float addSpeed = wishSpeed - currentSpeed;
-        if (addSpeed > 0)
-        {
-            float accelSpeed = accel * Time.deltaTime * wishSpeed;
-            velocity += wishDir * Mathf.Min(addSpeed, accelSpeed);
-        }
-
-        // Limit max air speed
-        if (!isGrounded && velocity.magnitude > maxAirSpeed)
-        {
-            velocity = velocity.normalized * maxAirSpeed;
-        }
-
-        return velocity;
+        float addSpeed = maxSpeed - Mathf.Abs(currentSpeed);
+        if (addSpeed <= 0) return currentSpeed;
+        float accelSpeed = Mathf.Min(acceleration * Time.deltaTime, addSpeed);
+        return currentSpeed + wishDir * accelSpeed;
     }
 }
