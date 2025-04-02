@@ -4,103 +4,124 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private CharacterController controller;
+    private CharacterController controller;
+    [SerializeField] private Transform playerCamera;
 
-    // Movement Speeds
+    // Movement settings
     [SerializeField] private float moveSpeed = 7.0f;
-    [SerializeField] private float jumpForce = 5.0f;
-    [SerializeField] private float gravity = 9.81f;
-    [SerializeField] private float friction = 0.5f; // Lower friction = smoother movement
-    [SerializeField] private float airAcceleration = 15.0f; // Faster air strafing
+    [SerializeField] private float jumpSpeed = 8.0f;
+    [SerializeField] private float gravity = 20.0f;
+    [SerializeField] private float friction = 6.0f;
+    [SerializeField] private float acceleration = 10.0f;
+    [SerializeField] private float airAcceleration = 15.0f;
+    [SerializeField] private float maxAirSpeed = 20.0f;
 
-    // Mouse Sensitivity
-    [SerializeField] private float mouseSensitivity = 2.5f;
+    // Mouse settings
+    [SerializeField] private float mouseSensitivity = 3.0f;
+    private float rotationX = 0.0f;
 
-    private Vector3 velocity;
+    private Vector3 moveDirection = Vector3.zero;
+    private Vector3 wishDir;
+    private float wishSpeed;
+
     private bool isGrounded;
-    private bool jumpQueued;
 
     void Start()
     {
+        controller = GetComponent<CharacterController>();
+
+        // Lock cursor for FPS movement
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
     {
-        LookAround();
-        HandleMovement();
+        isGrounded = controller.isGrounded;
+
+        // Mouse Look
+        MouseLook();
+
+        if (isGrounded)
+        {
+            GroundMove();
+        }
+        else
+        {
+            AirMove();
+        }
+
+        moveDirection.y -= gravity * Time.deltaTime;
+        controller.Move(moveDirection * Time.deltaTime);
     }
 
-    void LookAround()
+    void MouseLook()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        // Rotate the camera horizontally
-        transform.Rotate(Vector3.up * mouseX);
+        rotationX -= mouseY;
+        rotationX = Mathf.Clamp(rotationX, -90f, 90f); // Prevents looking too far up/down
 
-        // Apply vertical look (camera pitch) here (if desired):
-        Camera.main.transform.Rotate(Vector3.left * mouseY);
+        playerCamera.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        transform.Rotate(Vector3.up * mouseX);
     }
 
-    void HandleMovement()
+    void GroundMove()
     {
-        isGrounded = controller.isGrounded;
+        // Apply friction
+        moveDirection.x *= 1 - (friction * Time.deltaTime);
+        moveDirection.z *= 1 - (friction * Time.deltaTime);
 
-        // Get input
+        // Get movement input
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveZ = Input.GetAxisRaw("Vertical");
 
-        Vector3 moveDir = transform.right * moveX + transform.forward * moveZ;
-        moveDir = moveDir.normalized;
+        wishDir = new Vector3(moveX, 0, moveZ);
+        wishDir = transform.TransformDirection(wishDir);
+        wishDir.Normalize();
+        wishSpeed = wishDir.magnitude * moveSpeed;
 
-        if (isGrounded)
-        {
-            GroundMove(moveDir);
-            if (Input.GetKeyDown(KeyCode.Space)) jumpQueued = true;
-        }
-        else
-        {
-            AirMove(moveDir);
-        }
-
-        // Apply gravity
-        velocity.y -= gravity * Time.deltaTime;
-
-        // Apply movement
-        controller.Move(velocity * Time.deltaTime);
-    }
-
-    void GroundMove(Vector3 moveDir)
-    {
-        // Apply friction
-        velocity.x *= 1 - (friction * Time.deltaTime);
-        velocity.z *= 1 - (friction * Time.deltaTime);
-
-        // Apply movement
-        velocity.x = moveDir.x * moveSpeed;
-        velocity.z = moveDir.z * moveSpeed;
+        // Accelerate
+        moveDirection = Accelerate(moveDirection, wishDir, wishSpeed, acceleration);
 
         // Auto Bunny Hop
-        if (jumpQueued)
+        if (Input.GetButton("Jump"))
         {
-            velocity.y = jumpForce;
-            jumpQueued = false;
+            moveDirection.y = jumpSpeed;
         }
     }
 
-    void AirMove(Vector3 moveDir)
+    void AirMove()
     {
-        // Apply air acceleration for smooth strafing
-        velocity.x = Accelerate(velocity.x, moveDir.x, moveSpeed, airAcceleration);
-        velocity.z = Accelerate(velocity.z, moveDir.z, moveSpeed, airAcceleration);
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveZ = Input.GetAxisRaw("Vertical");
+
+        wishDir = new Vector3(moveX, 0, moveZ);
+        wishDir = transform.TransformDirection(wishDir);
+        wishDir.Normalize();
+        wishSpeed = wishDir.magnitude * moveSpeed;
+
+        // Accelerate in air (air strafing)
+        moveDirection = Accelerate(moveDirection, wishDir, wishSpeed, airAcceleration);
     }
 
-    float Accelerate(float currentSpeed, float wishDir, float maxSpeed, float acceleration)
+    Vector3 Accelerate(Vector3 velocity, Vector3 wishDir, float wishSpeed, float accel)
     {
-        float addSpeed = maxSpeed - Mathf.Abs(currentSpeed);
-        if (addSpeed <= 0) return currentSpeed;
-        float accelSpeed = Mathf.Min(acceleration * Time.deltaTime, addSpeed);
-        return currentSpeed + wishDir * accelSpeed;
+        float currentSpeed = Vector3.Dot(velocity, wishDir);
+        float addSpeed = wishSpeed - currentSpeed;
+        if (addSpeed > 0)
+        {
+            float accelSpeed = accel * Time.deltaTime * wishSpeed;
+            velocity += wishDir * Mathf.Min(addSpeed, accelSpeed);
+        }
+
+        // Limit max air speed
+        if (!isGrounded && velocity.magnitude > maxAirSpeed)
+        {
+            velocity = velocity.normalized * maxAirSpeed;
+        }
+
+        return velocity;
     }
 }
