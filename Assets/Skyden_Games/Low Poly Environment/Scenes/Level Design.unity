@@ -12244,7 +12244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331a12964ccc54143b61dd3a6423e573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 657336690}
+  target: {fileID: 761867483}
 --- !u!1001 &1199250409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18791,7 +18791,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2
