@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1533916390690065842}
   - component: {fileID: 7830572806785334969}
   - component: {fileID: 1150145532914431540}
+  - component: {fileID: 7952342515703654502}
   m_Layer: 0
   m_Name: Pizza
   m_TagString: Untagged
@@ -64,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 404a8923f5ace844789db66718db211f, type: 2}
+  - {fileID: 2100000, guid: 10a503df4c24e194b936fc9ce33f55a9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -132,9 +133,22 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: d3a88e33be12ed34b832c0be1f56a7a9, type: 3}
+--- !u!114 &7952342515703654502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6846985528960117828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebeb3e5625fac496085077efef60d99a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitEffect: {fileID: 919132149155446097, guid: 9adb13019cc6ac946a107ee92c35a9f5, type: 3}
 --- !u!1001 &3434457320940000718
 PrefabInstance:
   m_ObjectHideFlags: 0

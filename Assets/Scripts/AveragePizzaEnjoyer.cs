@@ -6,6 +6,11 @@ public class AveragePizzaEnjoyer: MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        print("Unternehmensrechtschutzversicherung");
+
+        if (collision.gameObject.TryGetComponent(out Food food))
+        {
+            print("Unternehmensrechtschutzversicherung");
+        }
+        
     }
 }
