@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
-    [SerializeField] private Transform playerCamera;
+    [SerializeField] private Transform playerCamera;
 
     // Movement settings
     [SerializeField] private float moveSpeed = 7.0f;
@@ -19,6 +19,11 @@ public class PlayerMovement : MonoBehaviour
     // Mouse settings
     [SerializeField] private float mouseSensitivity = 3.0f;
     private float rotationX = 0.0f;
+
+    // Trimp settings
+    [SerializeField] private float trimpSlopeThreshold = 30f; // in degrees
+    [SerializeField] private float trimpBoostMultiplier = 0.4f;
+    private Vector3 lastGroundNormal = Vector3.up;
 
     private Vector3 moveDirection = Vector3.zero;
     private Vector3 wishDir;
@@ -38,6 +43,16 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         isGrounded = controller.isGrounded;
+
+        // Update last slope normal if grounded
+        if (isGrounded)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, controller.height / 2 + 0.5f))
+            {
+                lastGroundNormal = hit.normal;
+            }
+        }
 
         // Mouse Look
         MouseLook();
@@ -84,11 +99,24 @@ public class PlayerMovement : MonoBehaviour
 
         // Accelerate
         moveDirection = Accelerate(moveDirection, wishDir, wishSpeed, acceleration);
+        float slopeAngle = Vector3.Angle(lastGroundNormal, Vector3.up);
+        print(slopeAngle);
 
-        // Auto Bunny Hop
+        // Auto Bunny Hop + Trimp
         if (Input.GetButton("Jump"))
         {
-            moveDirection.y = jumpSpeed;
+             
+            float trimpBoost = 0f;
+            float angleBoost = 0f;
+
+            if (slopeAngle > trimpSlopeThreshold)
+            {
+                Vector3 horizontalVelocity = new Vector3(moveDirection.x, 0, moveDirection.z);
+                trimpBoost = horizontalVelocity.magnitude * trimpBoostMultiplier;
+                angleBoost = Mathf.Max(45 - (Mathf.Abs(slopeAngle - 45)),0); // Je näher bei 45 Grad, desto mehr Boost
+            }
+
+            moveDirection.y = jumpSpeed + trimpBoost * angleBoost;
         }
     }
 
@@ -125,3 +153,4 @@ public class PlayerMovement : MonoBehaviour
         return velocity;
     }
 }
+

@@ -9,7 +9,7 @@ public class AveragePizzaEnjoyer: MonoBehaviour
 
         if (collision.gameObject.TryGetComponent(out Food food))
         {
-            print("Unternehmensrechtschutzversicherung");
+            print("Thank You for the Pizza :D");
         }
         
     }
