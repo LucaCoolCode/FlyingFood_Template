@@ -19369,6 +19369,8 @@ MonoBehaviour:
   airAcceleration: 15
   maxAirSpeed: 20
   mouseSensitivity: 1
+  trimpSlopeThreshold: 0
+  trimpBoostMultiplier: 50
 --- !u!1001 &1819431422
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,8 +13,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gravity = 20.0f;
     [SerializeField] private float friction = 6.0f;
     [SerializeField] private float acceleration = 10.0f;
-    [SerializeField] private float airAcceleration = 15.0f;
-    [SerializeField] private float maxAirSpeed = 20.0f;
+    [SerializeField] private float airAcceleration = 15;
+    [SerializeField] private float maxAirSpeed = 20;
+    [SerializeField] private float trimpSpeedForward = 50f;
 
     // Mouse settings
     [SerializeField] private float mouseSensitivity = 3.0f;
@@ -100,12 +101,10 @@ public class PlayerMovement : MonoBehaviour
         // Accelerate
         moveDirection = Accelerate(moveDirection, wishDir, wishSpeed, acceleration);
         float slopeAngle = Vector3.Angle(lastGroundNormal, Vector3.up);
-        print(slopeAngle);
 
         // Auto Bunny Hop + Trimp
         if (Input.GetButton("Jump"))
         {
-             
             float trimpBoost = 0f;
             float angleBoost = 0f;
 
@@ -113,11 +112,20 @@ public class PlayerMovement : MonoBehaviour
             {
                 Vector3 horizontalVelocity = new Vector3(moveDirection.x, 0, moveDirection.z);
                 trimpBoost = horizontalVelocity.magnitude * trimpBoostMultiplier;
-                angleBoost = Mathf.Max(45 - (Mathf.Abs(slopeAngle - 45)),0); // Je näher bei 45 Grad, desto mehr Boost
+                angleBoost = Mathf.Max(45 - (Mathf.Abs(slopeAngle - 45)), 0); // Je näher bei 45 Grad, desto mehr Boost
+
+                // Horizontal trimp boost
+                Vector3 boostDirection = horizontalVelocity.normalized;
+
+
+                 float horizontalBoost = trimpBoost * trimpSpeedForward;// Tweak multiplier as needed
+                moveDirection += boostDirection * horizontalBoost;
             }
 
+            // Apply vertical boost
             moveDirection.y = jumpSpeed + trimpBoost * angleBoost;
         }
+       
     }
 
     void AirMove()
