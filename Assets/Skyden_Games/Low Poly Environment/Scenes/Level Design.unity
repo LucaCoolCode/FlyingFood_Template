@@ -19148,8 +19148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootSpeed: 30
-  shootPoint: {fileID: 1704856057}
-  food: {fileID: 6846985528960117828, guid: 17bcbe3bd81594df1a1e1570513e61f7, type: 3}
+  shootPoint: {fileID: 0}
+  food: {fileID: 0}
 --- !u!1001 &1808931067
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19369,6 +19369,9 @@ MonoBehaviour:
   airAcceleration: 15
   maxAirSpeed: 20
   mouseSensitivity: 1
+  trimpSlopeThreshold: 30
+  trimpBoostMultiplier: 0.4
+  trimpForwardBoostMultiplier: 2
 --- !u!1001 &1819431422
 PrefabInstance:
   m_ObjectHideFlags: 0

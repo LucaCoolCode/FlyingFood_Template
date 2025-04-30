@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     // Trimp settings
     [SerializeField] private float trimpSlopeThreshold = 30f; // in degrees
     [SerializeField] private float trimpBoostMultiplier = 0.4f;
+    [SerializeField] private float trimpForwardBoostMultiplier = 0.5f; // NEW: forward trimp boost multiplier
     private Vector3 lastGroundNormal = Vector3.up;
 
     private Vector3 moveDirection = Vector3.zero;
@@ -34,8 +35,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-
-        // Lock cursor for FPS movement
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -44,7 +43,6 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = controller.isGrounded;
 
-        // Update last slope normal if grounded
         if (isGrounded)
         {
             RaycastHit hit;
@@ -54,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        // Mouse Look
         MouseLook();
 
         if (isGrounded)
@@ -76,19 +73,16 @@ public class PlayerMovement : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
         rotationX -= mouseY;
-        rotationX = Mathf.Clamp(rotationX, -90f, 90f); // Prevents looking too far up/down
-
+        rotationX = Mathf.Clamp(rotationX, -90f, 90f);
         playerCamera.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.Rotate(Vector3.up * mouseX);
     }
 
     void GroundMove()
     {
-        // Apply friction
         moveDirection.x *= 1 - (friction * Time.deltaTime);
         moveDirection.z *= 1 - (friction * Time.deltaTime);
 
-        // Get movement input
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveZ = Input.GetAxisRaw("Vertical");
 
@@ -97,15 +91,12 @@ public class PlayerMovement : MonoBehaviour
         wishDir.Normalize();
         wishSpeed = wishDir.magnitude * moveSpeed;
 
-        // Accelerate
         moveDirection = Accelerate(moveDirection, wishDir, wishSpeed, acceleration);
         float slopeAngle = Vector3.Angle(lastGroundNormal, Vector3.up);
         print(slopeAngle);
 
-        // Auto Bunny Hop + Trimp
         if (Input.GetButton("Jump"))
         {
-             
             float trimpBoost = 0f;
             float angleBoost = 0f;
 
@@ -113,7 +104,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 Vector3 horizontalVelocity = new Vector3(moveDirection.x, 0, moveDirection.z);
                 trimpBoost = horizontalVelocity.magnitude * trimpBoostMultiplier;
-                angleBoost = Mathf.Max(45 - (Mathf.Abs(slopeAngle - 45)),0); // Je näher bei 45 Grad, desto mehr Boost
+                angleBoost = Mathf.Max(45 - Mathf.Abs(slopeAngle - 45), 0);
+
+                // Apply forward trimp boost
+                Vector3 forwardDir = new Vector3(transform.forward.x, 0, transform.forward.z).normalized;
+                moveDirection += forwardDir * trimpBoost * trimpForwardBoostMultiplier;
             }
 
             moveDirection.y = jumpSpeed + trimpBoost * angleBoost;
@@ -130,7 +125,6 @@ public class PlayerMovement : MonoBehaviour
         wishDir.Normalize();
         wishSpeed = wishDir.magnitude * moveSpeed;
 
-        // Accelerate in air (air strafing)
         moveDirection = Accelerate(moveDirection, wishDir, wishSpeed, airAcceleration);
     }
 
@@ -144,7 +138,6 @@ public class PlayerMovement : MonoBehaviour
             velocity += wishDir * Mathf.Min(addSpeed, accelSpeed);
         }
 
-        // Limit max air speed
         if (!isGrounded && velocity.magnitude > maxAirSpeed)
         {
             velocity = velocity.normalized * maxAirSpeed;
@@ -153,4 +146,3 @@ public class PlayerMovement : MonoBehaviour
         return velocity;
     }
 }
-
