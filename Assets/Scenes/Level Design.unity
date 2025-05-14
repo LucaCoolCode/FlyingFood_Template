@@ -11253,7 +11253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -12767,71 +12767,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2191666470857331508, guid: 8b63f536dcb9512418bb18c53c2565c6, type: 3}
   m_PrefabInstance: {fileID: 1228434995}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1235913749
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1815215172}
-    m_Modifications:
-    - target: {fileID: 2567582188153240003, guid: 5644c4ecc78c06d4ca4c78b2540c5ab2, type: 3}
-      propertyPath: m_Name
-      value: Boom
-      objectReference: {fileID: 0}
-    - target: {fileID: 2999460971655398109, guid: 5644c4ecc78c06d4ca4c78b2540c5ab2, type: 3}
-      propertyPath: m_Intensity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7780029557211327127, guid: 5644c4ecc78c06d4ca4c78b2540c5ab2, type: 3}
-      propertyPath: m_RootOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7780029557211327127, guid: 5644c4ecc78c06d4ca4c78b2540c5ab2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7780029557211327127, guid: 5644c4ecc78c06d4ca4c78b2540c5ab2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7780029557211327127, guid: 5644c4ecc78c06d4ca4c78b2540c5ab2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 3.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 7780029557211327127, guid: 5644c4ecc78c06d4ca4c78b2540c5ab2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7780029557211327127, guid: 5644c4ecc78c06d4ca4c78b2540c5ab2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7780029557211327127, guid: 5644c4ecc78c06d4ca4c78b2540c5ab2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7780029557211327127, guid: 5644c4ecc78c06d4ca4c78b2540c5ab2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7780029557211327127, guid: 5644c4ecc78c06d4ca4c78b2540c5ab2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7780029557211327127, guid: 5644c4ecc78c06d4ca4c78b2540c5ab2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7780029557211327127, guid: 5644c4ecc78c06d4ca4c78b2540c5ab2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5644c4ecc78c06d4ca4c78b2540c5ab2, type: 3}
 --- !u!1001 &1246709525
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15451,11 +15386,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2191666470857331508, guid: 8b63f536dcb9512418bb18c53c2565c6, type: 3}
   m_PrefabInstance: {fileID: 1474315902}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1476794809 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7780029557211327127, guid: 5644c4ecc78c06d4ca4c78b2540c5ab2, type: 3}
-  m_PrefabInstance: {fileID: 1235913749}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1477517585
 PrefabInstance:
@@ -19631,7 +19561,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 19541633}
-  - {fileID: 1476794809}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19654,7 +19583,7 @@ MonoBehaviour:
   friction: 10
   acceleration: 10
   airAcceleration: 15
-  maxAirSpeed: 20
+  maxAirSpeed: 100
   mouseSensitivity: 1
   trimpSlopeThreshold: 30
   trimpBoostMultiplier: 0.4
