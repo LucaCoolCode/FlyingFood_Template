@@ -32,6 +32,13 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isGrounded;
 
+    public void AddExplosionForce(Vector3 explosionOrigin, float force)
+    {
+        Vector3 explosionDirection = (transform.position - explosionOrigin).normalized;
+        moveDirection += explosionDirection * force;
+    }
+
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -93,7 +100,6 @@ public class PlayerMovement : MonoBehaviour
 
         moveDirection = Accelerate(moveDirection, wishDir, wishSpeed, acceleration);
         float slopeAngle = Vector3.Angle(lastGroundNormal, Vector3.up);
-        print(slopeAngle);
 
         if (Input.GetButton("Jump"))
         {

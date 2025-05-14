@@ -9,8 +9,10 @@ public class AveragePizzaEnjoyer: MonoBehaviour
 
         if (collision.gameObject.TryGetComponent(out Food food))
         {
-            print("Thank You for the Pizza :D");
+            GameManager.Instance.ScoreUpPizza();
+
+
         }
-        
+
     }
 }
