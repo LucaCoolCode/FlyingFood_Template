@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class AveragePizzaEnjoyer: MonoBehaviour
 {
+    public bool isHungry;
     private void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.TryGetComponent(out Food food))
+        if (isHungry && collision.gameObject.TryGetComponent(out Food food))
         {
+            isHungry = false;
             GameManager.Instance.ScoreUpPizza();
-
 
         }
 
