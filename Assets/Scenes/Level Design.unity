@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 19541633}
   - component: {fileID: 19541632}
   - component: {fileID: 19541631}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -4425,7 +4425,7 @@ GameObject:
   - component: {fileID: 421435878}
   - component: {fileID: 421435877}
   - component: {fileID: 421435876}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9600,17 +9600,33 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3829743903365480172, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3829743904656233959, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3829743904656233977, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3829743904775807582, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
       propertyPath: m_Intensity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3829743904775807583, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3829743905182740562, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3829743905182740564, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8192465799002361364, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
       propertyPath: m_RootOrder
@@ -9618,27 +9634,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8192465799002361364, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8192465799002361364, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8192465799002361364, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8192465799002361364, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8192465799002361364, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8192465799002361364, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.42
       objectReference: {fileID: 0}
     - target: {fileID: 8192465799002361364, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9679,6 +9695,10 @@ PrefabInstance:
     - target: {fileID: 8192465799002361367, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
       propertyPath: m_Name
       value: CFXR Electrified 2 (Purple)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8192465799002361367, guid: 5a4491ddf40ff524ab852857c4b03987, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12184,7 +12204,7 @@ GameObject:
   - component: {fileID: 1127062912}
   - component: {fileID: 1127062911}
   - component: {fileID: 1127062910}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arrow (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12597,7 +12617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1198595701}
   - component: {fileID: 1198595702}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TargetArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18347,7 +18367,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1704856057}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShotPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19375,7 +19395,7 @@ GameObject:
   - component: {fileID: 1815215169}
   - component: {fileID: 1815215168}
   - component: {fileID: 1815215173}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21061,7 +21081,7 @@ GameObject:
   - component: {fileID: 1984853787}
   - component: {fileID: 1984853786}
   - component: {fileID: 1984853785}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arrow (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23012,7 +23032,7 @@ GameObject:
   - component: {fileID: 3344463210823517034}
   - component: {fileID: 6636981324213639591}
   - component: {fileID: 8653973351023968236}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

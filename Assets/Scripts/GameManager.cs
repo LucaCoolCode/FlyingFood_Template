@@ -30,7 +30,13 @@ public class GameManager : MonoBehaviour
 
     private void ChangeEnjoyer()
     {
-        AveragePizzaEnjoyer newEnjoyer = enjoyers[Random.Range(0, enjoyers.Length)];
+        AveragePizzaEnjoyer newEnjoyer;
+        do
+        {
+            newEnjoyer = enjoyers[Random.Range(0, enjoyers.Length)];
+        }
+        while (arrowOfKnowlege.target == newEnjoyer.transform);
+        
         arrowOfKnowlege.target = newEnjoyer.transform;
         newEnjoyer.isHungry = true;
     }
