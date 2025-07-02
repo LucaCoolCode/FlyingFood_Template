@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool isWalking;
     private CharacterController controller;
     [SerializeField] private Transform playerCamera;
 
@@ -69,6 +70,8 @@ public class PlayerMovement : MonoBehaviour
         {
             AirMove();
         }
+        isWalking = moveDirection.magnitude > 0 && isGrounded;
+        print(moveDirection);
 
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
@@ -100,6 +103,10 @@ public class PlayerMovement : MonoBehaviour
 
         moveDirection = Accelerate(moveDirection, wishDir, wishSpeed, acceleration);
         float slopeAngle = Vector3.Angle(lastGroundNormal, Vector3.up);
+
+        
+
+
 
         if (Input.GetButton("Jump"))
         {
