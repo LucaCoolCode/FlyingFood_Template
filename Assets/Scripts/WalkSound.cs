@@ -22,7 +22,7 @@ public class WalkSound : MonoBehaviour
                 walkSound.Play();
                 yield return new WaitForSeconds(0.5f);
             }
-
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }
