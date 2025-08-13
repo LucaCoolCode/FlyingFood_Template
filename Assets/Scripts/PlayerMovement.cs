@@ -64,16 +64,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (isGrounded)
         {
+            moveDirection.y = 0;
             GroundMove();
         }
         else
         {
             AirMove();
         }
-        isWalking = moveDirection.magnitude > 0 && isGrounded;
+        isWalking = moveDirection.magnitude > 0.1f && isGrounded;
         print(moveDirection);
 
-        moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
     }
 
@@ -104,10 +104,6 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = Accelerate(moveDirection, wishDir, wishSpeed, acceleration);
         float slopeAngle = Vector3.Angle(lastGroundNormal, Vector3.up);
 
-        
-
-
-
         if (Input.GetButton("Jump"))
         {
             float trimpBoost = 0f;
@@ -130,6 +126,7 @@ public class PlayerMovement : MonoBehaviour
 
     void AirMove()
     {
+        moveDirection.y -= gravity * Time.deltaTime;
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveZ = Input.GetAxisRaw("Vertical");
 
